@@ -1,0 +1,153 @@
+{
+  "server": "campus_customs",
+  "database": "data/campus_customs_new.db",
+  "tools_listed": [
+    "get_customer_order_context",
+    "get_discount_request_context",
+    "get_rent_ticket_context"
+  ],
+  "tool_checks": [
+    {
+      "tool_name": "get_customer_order_context",
+      "arguments": {
+        "ticket_id": 101
+      },
+      "tool_output": {
+        "ticket": {
+          "id": 101,
+          "type": "customer_order",
+          "requester": "Tauhid Zaman",
+          "subject": "Bulldog tee",
+          "sku": "CC-TEE-WHITE",
+          "size": "S",
+          "qty": 1,
+          "lease_id": null,
+          "invoice_id": 501,
+          "status": "open",
+          "notes": "Needs a tee in size S.",
+          "created_at": "2026-08-31T09:15:00-04:00"
+        },
+        "shop_date": "2026-08-31",
+        "inventory": {
+          "sku": "CC-TEE-WHITE",
+          "name": "Classic Bulldog Tee",
+          "size": "S",
+          "qty": 0,
+          "location": "Aisle B"
+        },
+        "pricing": {
+          "sku": "CC-TEE-WHITE",
+          "unit_cost": 8.0,
+          "list_price": 28.0
+        },
+        "invoice": {
+          "id": 501,
+          "vendor_id": 1,
+          "amount": 840.0,
+          "due_date": "2026-08-28",
+          "status": "open",
+          "description": "Rush reprint CC-TEE-WHITE S"
+        },
+        "vendor": {
+          "id": 1,
+          "name": "Bulldog Print Co",
+          "specialty": "apparel reprint",
+          "lead_days": 5
+        }
+      },
+      "matches_database": true,
+      "codex_prompt": "Ok, now I'm just going to run each of the prompts to check. Please use the get_customer_order_context MCP tool for ticket 101 and report its linked stock, pricing, invoice, vendor, and shop date.",
+      "actual_codex_mcp_tool_call": true,
+      "invocation_method": "Active Codex MCP tool call"
+    },
+    {
+      "tool_name": "get_rent_ticket_context",
+      "arguments": {
+        "ticket_id": 102
+      },
+      "tool_output": {
+        "ticket": {
+          "id": 102,
+          "type": "rent_notice",
+          "requester": "Elm City Properties",
+          "subject": "Rent due",
+          "sku": null,
+          "size": null,
+          "qty": null,
+          "lease_id": 1,
+          "invoice_id": null,
+          "status": "open",
+          "notes": "Email: shop rent due in 2 days.",
+          "created_at": "2026-08-31T11:05:00-04:00"
+        },
+        "shop_date": "2026-08-31",
+        "lease": {
+          "id": 1,
+          "space_name": "Chapel Street shop",
+          "landlord": "Elm City Properties",
+          "monthly_rent": 2400.0,
+          "next_due": "2026-09-02",
+          "notes": null
+        },
+        "cash_accounts": [
+          {
+            "name": "checking",
+            "balance": 3400.0,
+            "date": "2026-08-31"
+          }
+        ]
+      },
+      "matches_database": true,
+      "codex_prompt": "Please use the get_rent_ticket_context MCP tool for ticket 102 and report the lease, due date, shop date, and cash-account balance.",
+      "actual_codex_mcp_tool_call": true,
+      "invocation_method": "Active Codex MCP tool call"
+    },
+    {
+      "tool_name": "get_discount_request_context",
+      "arguments": {
+        "ticket_id": 103
+      },
+      "tool_output": {
+        "ticket": {
+          "id": 103,
+          "type": "price_override",
+          "requester": "Yale AI Club",
+          "subject": "Bulk hoodie discount",
+          "sku": "CC-HOOD-NAVY",
+          "size": "M",
+          "qty": 20,
+          "lease_id": null,
+          "invoice_id": null,
+          "status": "open",
+          "notes": "Student org wants 20 hoodies, size M, asking for a bulk discount.",
+          "created_at": "2026-08-31T16:55:00-04:00"
+        },
+        "inventory": {
+          "sku": "CC-HOOD-NAVY",
+          "name": "Basic Hoodie Big Yale",
+          "size": "M",
+          "qty": 8,
+          "location": "Aisle A"
+        },
+        "pricing": {
+          "sku": "CC-HOOD-NAVY",
+          "unit_cost": 22.0,
+          "list_price": 58.0
+        }
+      },
+      "matches_database": true,
+      "codex_prompt": "Please use the get_discount_request_context MCP tool for ticket 103 and report the requested SKU and size, available stock, unit cost, and list price.",
+      "actual_codex_mcp_tool_call": true,
+      "invocation_method": "Active Codex MCP tool call"
+    }
+  ],
+  "registration": {
+    "codex_server_name": "campus_customs",
+    "scope": "Codex local MCP server list",
+    "enabled": true,
+    "transport": "stdio"
+  },
+  "smoke_test_method": "All three tools were initially called through MCP ClientSession over stdio and then invoked through the active Codex MCP connection.",
+  "server_transport": "stdio",
+  "client_connection": "The smoke client started mcp_server/server.py directly; Codex is registered to the same command."
+}

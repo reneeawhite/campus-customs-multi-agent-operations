@@ -1,0 +1,120 @@
+{
+  "shop_date": "2026-08-31",
+  "working_database": "data/campus_customs_new.db",
+  "reset_source": "data/campus_customs.db",
+  "model_id": "gpt-6-luna",
+  "cash": {
+    "starting_checking_balance": 3400.0,
+    "actual_cash_changes_by_ticket": {
+      "101": 0.0,
+      "102": 0.0,
+      "103": 0.0
+    },
+    "ending_checking_balance": 3400.0,
+    "database_checking_balance": 3400.0,
+    "matches_working_database": true,
+    "payments_recorded": 0,
+    "human_approvals_recorded": 0,
+    "pending_payment_proposals_total": 3240.0,
+    "balance_if_both_pending_payments_were_approved": 160.0,
+    "hypothetical_hoodie_shortfall_cost": 264.0,
+    "note": "The hypothetical hoodie shortfall is 12 units at the database unit cost of $22; it is not a vendor quote, approved PO, or payment. Both pending payment proposals plus this hypothetical cost would total $3,504, which is $104 more than starting cash. No negative balance or incoming revenue is assumed."
+  },
+  "tickets": [
+    {
+      "id": 101,
+      "final_status": "open",
+      "workflow_status": "waiting_for_human",
+      "run_id": "5b6aed04-c87c-4e1c-be6b-dc880043085d",
+      "outcome": "Recorded stock for CC-TEE-WHITE size S is 0. Invoice 501 is overdue and blocks vendor 1 from shipping, but the records do not confirm SKU-specific supply or fulfillment. The team correctly left the ticket open.",
+      "actual_cash_change": 0.0,
+      "agents": [
+        {"role": "boss", "worked": true, "contribution": "Read the open board and order context, delegated the stock, payment, and customer-draft checks, and returned the final recommendation."},
+        {"role": "inventory", "worked": true, "contribution": "Confirmed the one-unit size-S shortage and vendor 1's open-invoice shipping block; no supplier match or order was confirmed."},
+        {"role": "accounting", "worked": true, "contribution": "Assessed overdue invoice 501 at $840 against checking and prepared a human payment proposal; did not pay."},
+        {"role": "facilities", "worked": false, "contribution": "Not delegated on this ticket."},
+        {"role": "customer_service", "worked": true, "contribution": "Prepared an unsent customer update draft; it was not sent."}
+      ],
+      "delegations": [
+        {"from": "boss", "to": "inventory"},
+        {"from": "boss", "to": "accounting"},
+        {"from": "boss", "to": "customer_service"}
+      ],
+      "mcp_tools_by_agent": {
+        "boss": ["list_open_tickets", "get_customer_order_context"],
+        "inventory": ["get_customer_order_context", "get_inventory_for_sku", "list_vendor_capabilities"],
+        "accounting": ["assess_invoice_payment"],
+        "customer_service": ["get_customer_order_context"]
+      },
+      "pending_human_approval_requests": [
+        {"action": "pay_invoice", "reference_id": 501, "amount": 840.0, "status": "pending", "note": "Paying this invoice alone does not fulfill the customer order."}
+      ],
+      "human_approvals": []
+    },
+    {
+      "id": 102,
+      "final_status": "open",
+      "workflow_status": "waiting_for_human",
+      "run_id": "d30abc6d-1d10-417b-a652-b5f34f778fc9",
+      "outcome": "Lease 1 records $2,400 rent due 2026-09-02, two days after the shop date. The checking assessment is sufficient, but a human has not approved payment, so the ticket remains open.",
+      "actual_cash_change": 0.0,
+      "agents": [
+        {"role": "boss", "worked": true, "contribution": "Read the open board and rent context, delegated lease review to Facilities and payment-capacity review to Accounting, and requested human approval."},
+        {"role": "inventory", "worked": false, "contribution": "Not delegated on this ticket."},
+        {"role": "accounting", "worked": true, "contribution": "Read the lease and assessed the $2,400 rent against the $3,400 checking balance; did not pay."},
+        {"role": "facilities", "worked": true, "contribution": "Checked the lease and due date, then delegated the payment-capacity check to Accounting."},
+        {"role": "customer_service", "worked": false, "contribution": "Not delegated on this ticket."}
+      ],
+      "delegations": [
+        {"from": "boss", "to": "facilities"},
+        {"from": "boss", "to": "accounting"},
+        {"from": "facilities", "to": "accounting"}
+      ],
+      "mcp_tools_by_agent": {
+        "boss": ["list_open_tickets", "get_rent_ticket_context"],
+        "facilities": ["get_rent_ticket_context", "assess_lease_payment"],
+        "accounting": ["get_rent_ticket_context", "assess_lease_payment"]
+      },
+      "pending_human_approval_requests": [
+        {"action": "pay_rent", "reference_id": 1, "amount": 2400.0, "status": "pending", "due_date": "2026-09-02"}
+      ],
+      "human_approvals": []
+    },
+    {
+      "id": 103,
+      "final_status": "open",
+      "workflow_status": "needs_information",
+      "run_id": "566c6068-7dbb-4ade-b4fd-fd8ef962035a",
+      "outcome": "Recorded size-M stock is 8 of the requested 20, a shortfall of 12. No discount amount, proposed sale price, approval policy, or SKU-specific supplier is recorded. The team left the ticket open.",
+      "actual_cash_change": 0.0,
+      "agents": [
+        {"role": "boss", "worked": true, "contribution": "Read the open board and discount context, delegated supplier/stock review to Inventory, margin review to Accounting, and customer wording to Customer Service."},
+        {"role": "inventory", "worked": true, "contribution": "Confirmed 8 units in stock, the 12-unit shortfall, and that no confirmed vendor match exists; vendor 1 is blocked by an open unpaid invoice."},
+        {"role": "accounting", "worked": true, "contribution": "Calculated list-price margin from recorded cost and price, identified the missing discount amount and policy, and made no price commitment."},
+        {"role": "facilities", "worked": false, "contribution": "Not delegated on this ticket."},
+        {"role": "customer_service", "worked": true, "contribution": "Prepared an unsent update draft; it was not sent."}
+      ],
+      "delegations": [
+        {"from": "boss", "to": "inventory"},
+        {"from": "boss", "to": "accounting"},
+        {"from": "boss", "to": "customer_service"}
+      ],
+      "mcp_tools_by_agent": {
+        "boss": ["list_open_tickets", "get_discount_request_context"],
+        "inventory": ["get_discount_request_context", "list_vendor_capabilities"],
+        "accounting": ["get_discount_request_context"],
+        "customer_service": ["get_discount_request_context"]
+      },
+      "pending_human_approval_requests": [
+        {"action": "review_discount", "reference_id": 103, "amount": null, "status": "needs_information", "note": "No amount is specified, and the current backend approval route does not apply discounts."}
+      ],
+      "human_approvals": []
+    }
+  ],
+  "board_screenshots": [
+    "resolved_board/ticket-101.png",
+    "resolved_board/ticket-102.png",
+    "resolved_board/ticket-103.png"
+  ],
+  "audit_trail": "audit_trail.json"
+}
